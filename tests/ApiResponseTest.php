@@ -35,7 +35,7 @@ use Normeno\ApiResponse\ApiResponse;
 class ApiResponseTest extends TestCase
 {
     /**
-     * Set a simple response with http
+     * Set a simple test
      */
     public function testSimpleSuccess()
     {
@@ -46,7 +46,7 @@ class ApiResponseTest extends TestCase
     }
 
     /**
-     * Set a simple response with http
+     * Set a simple response with extra data test
      */
     public function testSuccessWithRelationship()
     {
@@ -74,6 +74,33 @@ class ApiResponseTest extends TestCase
         $this->setTestCases($response, $code, $stringContent);
     }
 
+    /**
+     * Set success created test
+     */
+    public function testSuccessCreated()
+    {
+        $code = 201;
+        $response = ApiResponse::success(
+            $code,
+            'test',
+            [
+                'id' => 50,
+                'type' => 'post'
+            ]
+        );
+        $stringContent = '{"data":{"type":"test","attributes":{"id":50,"type":"post"}}}';
+        $this->setTestCases($response, $code, $stringContent);
+    }
+
+    /**
+     * General tests
+     *
+     * @param object $response
+     * @param integer $code
+     * @param string $stringContent
+     *
+     * @return void
+     */
     private function setTestCases($response, $code, $stringContent)
     {
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
