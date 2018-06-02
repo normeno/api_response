@@ -12,11 +12,11 @@
  * through the world-wide-web at the following URI:
  * http://opensource.org/licenses/mit-license.php
  *
- * @category Test
+ * @category Src
  * @package  Normeno\ApiResponse
  * @author   Nicolas Ormeno <ni.ormeno@gmail.com>
  * @license  http://opensource.org/licenses/mit-license.php MIT License
- * @link     https://github.com/normeno/gjson
+ * @link     https://github.com/normeno/api_response
  */
 namespace Normeno\ApiResponse;
 
@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @package  Normeno\ApiResponse
  * @author   Nicolas Ormeno <ni.ormeno@gmail.com>
  * @license  http://opensource.org/licenses/mit-license.php MIT License
- * @link     https://github.com/normeno/gjson
+ * @link     https://github.com/normeno/api_response
  */
 class ApiResponse {
 
@@ -65,21 +65,19 @@ class ApiResponse {
     /**
      * Generate standard error output
      *
-     * @param integer $type
+     * @param integer $code
      * @param string $message
      *
      * @return string json
      */
-    public static function error($type, $message)
+    public static function error($code, $message)
     {
-        return response(Collect([
-            'error' => [
-                'type' => $type,
-                'message' => $message
-            ]
-        ]), 409)
-            ->header('Content-Type', 'application/vnd.api+json')
-            ->header('Content-Type', 'application/vnd.api+json');
+        $response = [
+            'code' => $code,
+            'message' => $message
+        ];
+
+        return self::response($response, $code);
     }
 
     /**
