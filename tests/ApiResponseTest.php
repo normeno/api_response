@@ -16,7 +16,7 @@
  * @package  Normeno\ApiResponse\Test
  * @author   Nicolas Ormeno <ni.ormeno@gmail.com>
  * @license  http://opensource.org/licenses/mit-license.php MIT License
- * @link     https://github.com/normeno/gjson
+ * @link     https://github.com/normeno/api_response
  */
 namespace Normeno\ApiResponse\Test;
 
@@ -30,7 +30,7 @@ use Normeno\ApiResponse\ApiResponse;
  * @package  Normeno\ApiResponse\Test
  * @author   Nicolas Ormeno <ni.ormeno@gmail.com>
  * @license  http://opensource.org/licenses/mit-license.php MIT License
- * @link     https://github.com/normeno/gjson
+ * @link     https://github.com/normeno/api_response
  */
 class ApiResponseTest extends TestCase
 {
@@ -89,6 +89,19 @@ class ApiResponseTest extends TestCase
             ]
         );
         $stringContent = '{"data":{"type":"test","attributes":{"id":50,"type":"post"}}}';
+        $this->setTestCases($response, $code, $stringContent);
+    }
+
+    /**
+     * Set simple error test
+     */
+    public function testSimpleError()
+    {
+        $code = 404;
+        $message = 'ID not found';
+        $response = ApiResponse::error($code, $message);
+        $stringContent = '{"code":404,"message":"ID not found"}';
+
         $this->setTestCases($response, $code, $stringContent);
     }
 
