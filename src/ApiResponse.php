@@ -39,11 +39,12 @@ class ApiResponse {
      * @param integer $code
      * @param string $type
      * @param array|object $attributes
-     * @param array $extras
+     * @param array $extraData
+     * @param array $extraRoot
      *
      * @return string json
      */
-    public static function success($code, $type, $attributes, $extras=[])
+    public static function success($code, $type, $attributes, $extraData=[], $extraRoot=[])
     {
         $response = [ // Basic structure
             'data' => [
@@ -52,9 +53,15 @@ class ApiResponse {
             ]
         ];
 
-        if (!empty($extras)) { // Add extra params e.g relationships
-            foreach ($extras as $extra) {
-                $response['data'][$extra['key']] = $extra['value'];
+        if (!empty($extraRoot)) { // Add extra params e.g relationships
+            foreach ($extraRoot as $er) {
+                $response[$er['key']] = $er['value'];
+            }
+        }
+
+        if (!empty($extraData)) { // Add extra params e.g relationships
+            foreach ($extraData as $ed) {
+                $response['data'][$ed['key']] = $ed['value'];
             }
         }
 

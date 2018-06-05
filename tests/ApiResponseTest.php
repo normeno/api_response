@@ -106,6 +106,39 @@ class ApiResponseTest extends TestCase
     }
 
     /**
+     * Set a simple response with extra data test
+     */
+    public function testSuccessWithPagination()
+    {
+        $code = 200;
+        $response = ApiResponse::success(
+            $code,
+            'test',
+            [
+                'id' => 50,
+                'type' => 'post'
+            ],
+            [],
+            [
+                [
+                    'key' => 'links',
+                    'value' => [
+                        'self' => 'http://example.com/articles',
+                        'next' => 'http://example.com/articles?page[offset]=2',
+                        'last' => 'http://example.com/articles?page[offset]=10'
+                    ]
+                ],
+                [
+                    'key' => 'meta',
+                     'value' => [ 'total_pages' => 13 ]
+                ]
+            ]
+        );
+        $stringContent = '{"data":{"type":"test","attributes":{"id":50,"type":"post"},"relationships":{"author":{"id":42,"type":"people"}}}}';
+        $this->setTestCases($response, $code, $stringContent);
+    }
+
+    /**
      * General tests
      *
      * @param object $response
