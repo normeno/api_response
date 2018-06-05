@@ -134,7 +134,7 @@ class ApiResponseTest extends TestCase
                 ]
             ]
         );
-        $stringContent = '{"data":{"type":"test","attributes":{"id":50,"type":"post"},"relationships":{"author":{"id":42,"type":"people"}}}}';
+        $stringContent = '{"data":{"type":"test","attributes":{"id":50,"type":"post"}},"links":{"self":"http:\/\/example.com\/articles","next":"http:\/\/example.com\/articles?page[offset]=2","last":"http:\/\/example.com\/articles?page[offset]=10"},"meta":{"total_pages":13}}';
         $this->setTestCases($response, $code, $stringContent);
     }
 
