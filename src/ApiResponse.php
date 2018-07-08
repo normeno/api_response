@@ -48,10 +48,13 @@ class ApiResponse {
     {
         $response = [ // Basic structure
             'data' => [
-                'type' => $type,
-                'attributes' => $attributes
+                'type' => $type
             ]
         ];
+
+        if ($attributes) {
+            $response['data']['attributes'] = $attributes;
+        }
 
         if (!empty($extraRoot)) { // Add extra params e.g relationships
             foreach ($extraRoot as $er) {
@@ -60,13 +63,12 @@ class ApiResponse {
         }
 
         if (!empty($extraData)) { // Add extra params e.g relationships
-            foreach ($extraData as $ed) {
-                $response['data'][$ed['key']] = $ed['value'];
+            foreach ($extraData as $k => $v) {
+                $response['data'][$k] = $v;
             }
         }
 
         return self::response($response, $code);
-
     }
 
     /**

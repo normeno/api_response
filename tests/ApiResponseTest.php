@@ -59,13 +59,10 @@ class ApiResponseTest extends TestCase
                 'type' => 'post'
             ],
             [
-                [
-                    'key' => 'relationships',
-                    'value' => [
-                        'author' => [
-                            'id' => 42,
-                            'type' => 'people'
-                        ]
+                'relationships' => [
+                    'author' => [
+                        'id' => 42,
+                        'type' => 'people'
                     ]
                 ]
             ]
